@@ -7,7 +7,7 @@ import wx
 # to represent our GUIs with classes. This program is the same as Lesson 2 but object oriented.
 
 # We define a class called CoolerFrame because it is cooler than the original wx.Frame
-# Because we put wx.Frame is parentheses on line 12 instead of object, this class "inherits" from wx.Frame
+# Because we put wx.Frame in parentheses on line 12 instead of object, this class "inherits" from wx.Frame
 # Inherits means that the CoolerFrame has everything a wx.Frame has, plus the stuff we add.
 class CoolerFrame(wx.Frame):
 	# Remember __init__ is the constructor function. It sets up or "initializes" the new CoolerFrame
@@ -15,24 +15,44 @@ class CoolerFrame(wx.Frame):
 	
 		# We still want to do all stuff that the original wx.Frame constructor does, so we call it first.
 		# Always do this.
-		wx.Frame.__init__(self, parent, wx.ID_ANY, "Our Title")
+		wx.Frame.__init__(self, parent, wx.ID_ANY,"Josh")
 		
 		# Create a new panel that is a member of the frame
 		self.panel = wx.Panel(self) #Notice I put self in parentheses this time.
-
+		
+		# Create a static text	
+		self.staticText = wx.StaticText(self.panel, label = "This is a static text", pos = (20, 15), size = (400,20))
+		
+		
 		# Create a button, and put it in the panel
-		self.btnClickMe = wx.Button(self.panel, label="Click Me", pos=(20,20))
-
+		self.btnClickMe = wx.Button(self.panel, label = "Click Me", pos = (20,30))
+		
+		
 		# Make the button do something!
 		# Call self.OnClickMe instead of just OnClickMe
 		self.btnClickMe.Bind(wx.EVT_BUTTON, self.OnClickMe)
-
+		
 	# Now the event handler is part of the class.
 	# That means it has to have self as the first argument.
 	def OnClickMe(self, e):
 		print "Yay! You clicked it."
-	
 
+
+class mayFrame(wx.Frame):
+	def __init__(self, parent, title):
+		wx.Frame.__init__(self, parent, wx.ID_ANY, title)
+		self.panel = wx.Panel(self)
+		self.staticText = wx.StaticText(self.panel, label = "This will be your best click ever", pos = (20, 15), size = (400,20))
+		self.clickMay = wx.Button(self.panel, label = "Click May", pos = (20,35))
+		self.clickMay.Bind(wx.EVT_BUTTON, self.OnClickMay)
+	def OnClickMay(self, e): # If we put the "e" here, we it be the same with the "e" in OnClickMe?
+		print("Aww...You hit me")
+
+
+		
+		
+		
+	
 
 
 # ----------- Main Program Below -----------------
@@ -42,11 +62,11 @@ app = wx.App(False)
 
 # Instead of creating a normal wx.Frame we create an instance of our new class
 # It is named after me because I created it.
-joshsFrame = CoolerFrame(None) 
-
+joshFrame = CoolerFrame(None) 
+maymayFrame = mayFrame(None, "May") # Why is it "None"
 # Still show the frame in the main program
-joshsFrame.Show()
-
+joshFrame.Show()
+maymayFrame.Show()
 
 
 
