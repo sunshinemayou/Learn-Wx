@@ -24,23 +24,24 @@ class HelloFrame(wx.Frame):
 		# Now, this lesson's main feature. A wx.TextCtrl
 		# TextCtrl can also take a size=(width, height) argument.
 		self.nameBox = wx.TextCtrl(self.panel, pos=(200, 10))
-
+		
 		# A wx.Button just like before
 		self.btnSubmit = wx.Button(self.panel, label="Submit", pos=(150, 50))
-		self.btnSubmit.Bind(wx.EVT_BUTTON, self.OnSubmitSimple)
+		self.btnSubmit.Bind(wx.EVT_BUTTON, self.OnSubmitComplex)
 		
+		# Show the frame
+		self.Show()
+		# Attribute means "variable" in a class
 		
-		
-		
-	def OnSubmitSimple(self, e):
+	#def OnSubmitSimple(self, e):
 		# This event handler is called when the submit button is clicked.
 		# The purpose is to greet the user by name. It is the fancy version of: print "Hello", name
 		
 		# First we get whatever text the user entered in the text box
-		name = self.nameBox.GetValue()
+		#name = self.nameBox.GetValue()
 		
 		# Now we finally greet the user by displaying a message in our response wx.StaticText
-		self.response.SetLabel("Nice to meet you, " + name)
+		#self.response.SetLabel("Nice to meet you, " + name)
 		
 	def OnSubmitComplex(self, e):
 		# This event handler is used instead after you change the binding on line 30.
@@ -57,9 +58,11 @@ class HelloFrame(wx.Frame):
 			# The dialog box that we create here is called a Modal Dialog. With modal dialogs
 			# you can't interact with the main window until you close the modal dialog.
 			# There are lots of modal dialogs like open and save windows, or error messages.
-			wx.MessageBox("Hey, you didn't enter a name!", "Info", wx.OK)
-
-
+			wx.MessageBox("Hey, you didn't enter a name!", "Hey, you didn't enter a name! I'll call you Dave.",  wx.OK | wx.CANCEL )
+			self.nameBox.SetValue("Dave")
+			self.OnSubmitComplex(None)
+			# If you only write wx.CANCEl, it will also behave like wx.OK | wx.CANCEL in mac Os system
+			# wx.MessageBox("Sentence under the message box", "title of message box",  wx.OK | wx.CANCEL )
 
 # ----------- Main Program Below -----------------
 
@@ -69,8 +72,6 @@ app = wx.App(False)
 # Create a regular old wx.Frame
 frame = HelloFrame(None)
 
-# Show the frame
-frame.Show()
 
 # Make the app listen for clicks and other events
 app.MainLoop()
@@ -83,6 +84,7 @@ app.MainLoop()
 #0. Remember to read through all the code and comments to at least get the basic idea before starting the exercises.
 
 #1. What is the purpose of line 12? Write you answer below. Writing helps clearly identify answers.
+#Answer:  __init__ is for running from the normal wx.Panel.
 
 #2. The submit button is currently bound to a simple even handler called OnSubmitSimple.
 #   But there is also a fancier event handler called OnSubmitComplex.
